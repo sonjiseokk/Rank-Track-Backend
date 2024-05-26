@@ -1,18 +1,26 @@
 package com.ssafy.ranktrack.domain.member.entity;
 
 import com.ssafy.ranktrack.Tier;
+import com.ssafy.ranktrack.domain.history.entity.MemberHistory;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Member")
+import java.util.ArrayList;
+import java.util.List;
+
+import static lombok.AccessLevel.*;
+
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = PROTECTED)
+@Entity
 public class Member {
     @Id
-    private String id;
+    @GeneratedValue
+    @Column(name = "member_id")
+    private Long id;
     // 리얼 이름
     private String name;
     // 사용자 핸들
@@ -24,7 +32,11 @@ public class Member {
     // AC 스코어
     private Long rating;
     // 티어
+    @Enumerated(EnumType.STRING)
     private Tier tier;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MemberHistory> histories = new ArrayList<>();
+
 
     @Builder
     public Member(final String name, final String handle, final String profileImageUrl, final Long solvedCount, final Long rating, final Tier tier) {
