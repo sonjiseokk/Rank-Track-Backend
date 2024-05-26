@@ -42,7 +42,7 @@ public class SolvedApiService {
             JsonNode root = objectMapper.readTree(responseBody);
 
             String handle = root.path("handle").asText();
-            String profileImageUrl = root.path("profileImageUrl").asText(null);
+            String profileImageUrl = root.path("profileImageUrl").asText("");
             Long solvedCount = root.path("solvedCount").asLong();
             Long rating = root.path("rating").asLong();
             int tierValue = root.path("tier").asInt();
