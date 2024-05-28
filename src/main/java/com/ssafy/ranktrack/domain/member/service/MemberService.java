@@ -88,6 +88,7 @@ public class MemberService {
         }
     }
 
+    @Transactional
     public Member update(final String handle, SolvedShowDto solvedShowData) {
         try {
             Member member = memberRepository.findByHandle(handle).orElseThrow();
