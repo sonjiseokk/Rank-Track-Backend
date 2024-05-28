@@ -1,13 +1,14 @@
 package com.ssafy.ranktrack.domain.member.controller.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
-@Setter
-@Getter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MemberRequest {
-    private List<String> members;
+    private String handle;
+    private String name;
 }
 

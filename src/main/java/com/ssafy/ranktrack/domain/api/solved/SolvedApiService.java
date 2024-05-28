@@ -1,10 +1,8 @@
-package com.ssafy.ranktrack.domain.member.service;
+package com.ssafy.ranktrack.domain.api.solved;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.ranktrack.Tier;
-import com.ssafy.ranktrack.domain.member.entity.Member;
-import com.ssafy.ranktrack.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +20,7 @@ public class SolvedApiService {
     @Value("solvedac.cookie")
     private String cookieValue;
 
-    public Member getUserDataWithCookies(String handle) {
+    public SolvedShowDto getSolvedShowData(String handle) {
         String url = "https://solved.ac/api/v3/user/show?handle=" + handle;
 
         HttpHeaders headers = new HttpHeaders();
@@ -33,10 +31,11 @@ public class SolvedApiService {
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
-        return parseMemberFromResponse(response.getBody());
+        return parsingData(response.getBody());
     }
 
-        private Member parseMemberFromResponse(String responseBody) {
+
+    public SolvedShowDto parsingData(String responseBody) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode root = objectMapper.readTree(responseBody);
@@ -48,7 +47,7 @@ public class SolvedApiService {
             int tierValue = root.path("tier").asInt();
             Tier tier = Tier.fromValue(tierValue);
 
-            return Member.builder()
+            return SolvedShowDto.builder()
                     .handle(handle)
                     .profileImageUrl(profileImageUrl)
                     .solvedCount(solvedCount)
@@ -60,5 +59,4 @@ public class SolvedApiService {
             return null;
         }
     }
-
 }

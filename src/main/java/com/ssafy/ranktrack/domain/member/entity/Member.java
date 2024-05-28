@@ -1,9 +1,9 @@
 package com.ssafy.ranktrack.domain.member.entity;
 
 import com.ssafy.ranktrack.Tier;
+import com.ssafy.ranktrack.domain.api.solved.SolvedShowDto;
 import com.ssafy.ranktrack.domain.history.entity.MemberHistory;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,5 +46,12 @@ public class Member {
         this.solvedCount = solvedCount;
         this.rating = rating;
         this.tier = tier;
+    }
+
+    public void updateData(final SolvedShowDto solvedShowData) {
+        this.profileImageUrl = solvedShowData.getProfileImageUrl();
+        this.solvedCount = solvedShowData.getSolvedCount();
+        this.rating = solvedShowData.getRating();
+        this.tier = solvedShowData.getTier();
     }
 }
