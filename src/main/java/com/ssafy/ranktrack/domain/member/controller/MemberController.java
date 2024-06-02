@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/member")
+@RequestMapping("/api/member")
 @RequiredArgsConstructor
 @RestController
 @Slf4j
@@ -35,6 +35,12 @@ public class MemberController {
         List<MemberDto> memberDtos = memberService.findAll();
         return ResponseEntity.ok(new Result<>(true, "성공", memberDtos));
     }
+    @GetMapping("/detail/{handle}")
+    public ResponseEntity<?> detail(@PathVariable String handle) throws Exception {
+        MemberDto memberDto = memberService.findByHandle(handle);
+        return ResponseEntity.ok(new Result<>(true, "성공", memberDto));
+    }
+
 
     @PostMapping("/update")
     public ResponseEntity<?> updateSolveData() throws Exception {
