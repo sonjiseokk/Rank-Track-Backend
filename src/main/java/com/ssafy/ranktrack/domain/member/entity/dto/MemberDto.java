@@ -20,15 +20,18 @@ public class MemberDto {
     // AC 스코어
     private Long rating;
     // 티어
-    private Tier tier;
+    private String tier;
+    // 반 등수
+    private Integer classRank;
 
     @Builder
-    public MemberDto(final String name, final String handle, final String profileImageUrl, final Long solvedCount, final Long rating, final Tier tier) {
+    public MemberDto(final String name, final String handle, final String profileImageUrl, final Long solvedCount, final Long rating, final Tier tier, final Integer classRank) {
         this.name = name;
         this.handle = handle;
         this.profileImageUrl = profileImageUrl;
         this.solvedCount = solvedCount;
         this.rating = rating;
-        this.tier = tier;
+        this.tier = tier.getName();
+        this.classRank = classRank;
     }
 }

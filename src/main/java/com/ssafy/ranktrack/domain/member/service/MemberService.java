@@ -1,9 +1,6 @@
 package com.ssafy.ranktrack.domain.member.service;
 
-import com.ssafy.ranktrack.domain.api.solved.SolvedApiService;
 import com.ssafy.ranktrack.domain.api.solved.SolvedShowDto;
-import com.ssafy.ranktrack.domain.history.service.MemberHistoryService;
-import com.ssafy.ranktrack.domain.history.service.StageSolvedService;
 import com.ssafy.ranktrack.domain.member.entity.Member;
 import com.ssafy.ranktrack.domain.member.entity.dto.MemberDto;
 import com.ssafy.ranktrack.domain.member.repository.MemberRepository;
@@ -74,14 +71,8 @@ public class MemberService {
     public MemberDto findByHandle(String handle) throws Exception {
         try {
             Member findMember = memberRepository.findByHandle(handle).orElseThrow();
-            return MemberDto.builder()
-                    .handle(findMember.getHandle())
-                    .profileImageUrl(findMember.getProfileImageUrl())
-                    .name(findMember.getName())
-                    .solvedCount(findMember.getSolvedCount())
-                    .tier(findMember.getTier())
-                    .rating(findMember.getRating())
-                    .build();
+            Integer rank = memberRepository.findRankByHandle(handle);
+            return findMember.toDto(rank);
         } catch (SQLException e) {
             e.fillInStackTrace();
             throw new DBException("DB 조회에서 에러가 발생했습니다.");
@@ -96,6 +87,18 @@ public class MemberService {
             return member;
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public List<MemberDto> findNearByHandle(String handle) throws Exception {
+        try {
+            List<Member> nearMembers = memberRepository.findNearByHandle(handle);
+            return nearMembers.stream().map(member -> {
+                Integer rank = memberRepository.findRankByHandle(member.getHandle());
+                return member.toDto(rank);
+            }).toList();
+        } catch (Exception e) {
+            throw new Exception("이웃을 못찾았습니다.");
         }
     }
 }

@@ -3,6 +3,7 @@ package com.ssafy.ranktrack.domain.member.entity;
 import com.ssafy.ranktrack.Tier;
 import com.ssafy.ranktrack.domain.api.solved.SolvedShowDto;
 import com.ssafy.ranktrack.domain.history.entity.MemberHistory;
+import com.ssafy.ranktrack.domain.member.entity.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,5 +54,17 @@ public class Member {
         this.solvedCount = solvedShowData.getSolvedCount();
         this.rating = solvedShowData.getRating();
         this.tier = solvedShowData.getTier();
+    }
+
+    public MemberDto toDto(Integer classRank) {
+        return MemberDto.builder()
+                .handle(this.handle)
+                .profileImageUrl(this.profileImageUrl)
+                .name(this.name)
+                .solvedCount(this.solvedCount)
+                .tier(this.tier)
+                .rating(this.rating)
+                .classRank(classRank)
+                .build();
     }
 }
