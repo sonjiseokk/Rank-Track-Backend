@@ -6,7 +6,12 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     show-sql: true
+server:
+  port: 80
 solvedac:
   cookie: s%3AeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJoYW5kbGUiOiJqc2VvX2siLCJ0b2tlblZlcnNpb24iOjIsImlhdCI6MTcxNjY0ODkxMH0.Pt2uVN1fj4tAq_tlK66X8Sckx_Bp8vmvXUKuYHD8sr0.9eUrTpFVvxPwmCRGGB6DeKXIFbxULEtjzUMAZ9XmcVg
+
+scheduler:
+  enabled: false
