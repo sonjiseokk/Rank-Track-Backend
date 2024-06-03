@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class MemberDto {
+    // 데이터베이스 인덱스
+    private Long id;
     // 리얼 이름
     private String name;
     // 사용자 핸들
@@ -25,7 +27,8 @@ public class MemberDto {
     private Integer classRank;
 
     @Builder
-    public MemberDto(final String name, final String handle, final String profileImageUrl, final Long solvedCount, final Long rating, final Tier tier, final Integer classRank) {
+    public MemberDto(final Long id, final String name, final String handle, final String profileImageUrl, final Long solvedCount, final Long rating, final Tier tier, final Integer classRank) {
+        this.id = id;
         this.name = name;
         this.handle = handle;
         this.profileImageUrl = profileImageUrl;

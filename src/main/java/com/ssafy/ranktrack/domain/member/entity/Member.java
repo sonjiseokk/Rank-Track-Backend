@@ -65,6 +65,7 @@ public class Member {
                 .tier(this.tier)
                 .rating(this.rating)
                 .classRank(classRank)
+                .id(this.id)
                 .build();
     }
 }
