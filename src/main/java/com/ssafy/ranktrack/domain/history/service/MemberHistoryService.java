@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,4 +38,14 @@ public class MemberHistoryService {
             throw new RuntimeException(e);
         }
     }
+
+    public List<MemberHistory> dailyHistory(Member member) {
+        try {
+            return memberHistoryRepository.findDailyMemberHistory(member.getId());
+        } catch (SQLException e) {
+            throw new RuntimeException("MemberHistoryService dailyHistory 에러 발생");
+        }
+    }
+
+
 }
