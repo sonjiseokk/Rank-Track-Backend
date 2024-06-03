@@ -1,6 +1,7 @@
 package com.ssafy.ranktrack.domain.history.entity;
 
 import com.ssafy.ranktrack.Tier;
+import com.ssafy.ranktrack.domain.history.entity.dto.MemberHistoryDto;
 import com.ssafy.ranktrack.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,4 +43,13 @@ public class MemberHistory {
         this.timestamp = timestamp;
     }
 
+    public MemberHistoryDto toDto() {
+        return MemberHistoryDto.builder()
+                .handle(this.member.getHandle())
+                .solvedCount(this.solvedCount)
+                .rating(this.rating)
+                .tier(this.tier)
+                .timestamp(LocalDate.from(this.timestamp))
+                .build();
+    }
 }
