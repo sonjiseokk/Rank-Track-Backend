@@ -1,4 +1,4 @@
-package com.ssafy.ranktrack.domain.history.service;
+package com.ssafy.ranktrack.domain.api.solved;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +21,7 @@ import java.util.List;
 public class StageSolvedService {
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public List<StageSolvedCount> getStageSolvedCount(MemberHistory history, String handle) {
+    public List<StageSolvedCount> getStageSolvedCount(String handle) {
         String url = "https://solved.ac/api/v3/user/problem_stats?handle=" + handle;
 
         HttpHeaders headers = new HttpHeaders();
@@ -31,10 +31,10 @@ public class StageSolvedService {
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
-        return parseStageSolvedCounts(history, response.getBody());
+        return parseStageSolvedCounts(response.getBody());
     }
 
-    private List<StageSolvedCount> parseStageSolvedCounts(MemberHistory history, String responseBody) {
+    private List<StageSolvedCount> parseStageSolvedCounts(String responseBody) {
         List<StageSolvedCount> stageSolvedCounts = new ArrayList<>();
         try {
             ObjectMapper objectMapper = new ObjectMapper();
