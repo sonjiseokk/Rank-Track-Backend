@@ -51,6 +51,7 @@ public class MemberService {
             List<MemberDto> result = new ArrayList<>();
             for (Member member : allMember) {
                 MemberDto memberDto = MemberDto.builder()
+                        .id(member.getId())
                         .handle(member.getHandle())
                         .profileImageUrl(member.getProfileImageUrl())
                         .name(member.getName())
