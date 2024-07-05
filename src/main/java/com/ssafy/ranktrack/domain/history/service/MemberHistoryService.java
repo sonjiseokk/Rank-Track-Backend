@@ -28,14 +28,14 @@ public class MemberHistoryService {
     @Transactional
     public void join(Member member, SolvedShowDto solvedShowDto) {
         try {
-            MemberHistory memberHistory2 = MemberHistory.builder()
+            MemberHistory memberHistory = MemberHistory.builder()
                     .member(member)
                     .solvedCount(solvedShowDto.getSolvedCount())
                     .rating(solvedShowDto.getRating())
                     .tier(solvedShowDto.getTier())
                     .timestamp(LocalDateTime.now())
                     .build();
-            memberHistoryRepository.save(memberHistory2);
+            memberHistoryRepository.save(memberHistory);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
